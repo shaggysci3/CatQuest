@@ -1,0 +1,67 @@
+
+
+
+.hammy {
+  transition: 0.4s;
+  position:relitive;
+  width:60px;
+  height:20px;
+  cursor:pointer;
+  overflow:hidden;
+  padding:30px 10px;
+  background-color:white;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  z-index: 10;
+}
+.offcanvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+  flex-direction: row;
+}
+
+.sammy {
+  position:fixed;
+  width:40px;
+  height:4px;
+  background:black;
+}
+
+
+
+/* controlling the three children spans of the container div */
+.hammy .sammy:nth-child(1) {
+  transition: 0.4s;
+  transform:translateY(-15px);
+}
+
+.hammy .sammy:nth-child(2) {
+  transition: opacity 0.4;
+}
+
+
+.hammy .sammy:nth-child(3) {
+  transition: 0.4s;
+  transform:translateY(15px);
+}
+
+.hammy.active .sammy:nth-child(2) {
+  transition: opacity 0.4;
+  visibility: hidden;
+
+}
+
+.hammy.active .sammy:nth-child(1) {
+  transform:rotate(45deg)
+}
+
+.hammy.active .sammy:nth-child(3) {
+  transform:rotate(-45deg)
+}
+.hammy.active{
+  transition: 0.4s;
+  
+}
