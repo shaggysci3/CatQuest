@@ -1,9 +1,7 @@
-
     [[source]]
     url = "https://pypi.org/simple"
     verify_ssl = true
     name = "pypi"
-
     [packages]
     ipdb = "0.13.9"
     flask = "*"
@@ -14,7 +12,7 @@
     flask-restful = "*"
     flask-cors = "*"
     faker = "*"
-
+    flask-bcrypt = "*"
+    python-dotenv = "*"
     [requires]
     python_full_version = "3.8.13"
-    

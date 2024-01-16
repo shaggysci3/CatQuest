@@ -65,3 +65,53 @@
   transition: 0.4s;
   
 }
+
+
+
+
+
+
+.charHead{
+  position:relative;
+  
+    
+
+}
+.headDiv{ 
+  min-block-size: 200px;
+  position: relative;
+  top: 18px;
+}
+.charTorso{
+  position:relative;
+  left: 5px;
+  
+
+}
+.createbox{
+  display: flex;
+
+}
+.buttonCol{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+}
+.charLegs{
+  position: relative;
+  top:-41px;
+  left: 23px;
+
+}
+
+.characterDisplay{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.characterPage{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

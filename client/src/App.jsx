@@ -18,14 +18,28 @@ import Close from "./components/Close";
 import Create from "./routes/Create";
 import Profile from "./routes/Profile";
 import Quest from "./routes/Quest";
+import { useEffect } from "react";
       
       const AppLayout = () =>{
         const [show, setShow] = useState(false);
         const [isHammyClicked, setHammyClicked] = useState(false);
 
+
+        const [userData,setUserData]= useState()
+
+
         const handleClose = () => { setHammyClicked(!isHammyClicked);setShow(false)};
         const handleShow = () => setShow(true);
-
+        
+        useEffect(() => {
+          const storedUserStr= sessionStorage.getItem('token')
+          if (storedUserStr){
+          const storedUser = JSON.parse(storedUserStr) 
+          setUserData(storedUser)
+          console.log(storedUser)
+          
+        }}, []); 
+//  use outlet context
 
 
         return(
@@ -42,13 +56,15 @@ import Quest from "./routes/Quest";
           </Offcanvas.Body>
         </Offcanvas>
           
-          <Outlet/>
+          <Outlet context={[userData, setUserData]}/>
           </>
         )
       }
 
       const router = createBrowserRouter([
         {
+          
+          
           element: <AppLayout/>,
         errorElement: <ErrorPage/>,
           children:[

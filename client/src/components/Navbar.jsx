@@ -41,12 +41,12 @@
                       </li>
                       <li className='nav-item'>
                         <NavLink to="/create" className={({ isActive }) => "nav-links" + (isActive? " activated": '')} onClick={closeMobileMenu}>
-                          create
+                          Create Character
                         </NavLink>
                       </li>
                       <li className='nav-item'>
                         <NavLink to="/quest" className={({ isActive }) => "nav-links" + (isActive? " activated": '')} onClick={closeMobileMenu}>
-                          quest
+                          Current World
                         </NavLink>
                       </li>
                       <li className='nav-item'>

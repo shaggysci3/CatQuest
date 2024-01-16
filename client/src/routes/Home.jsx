@@ -1,19 +1,30 @@
-
-    import React, { useState } from 'react'
-    import './Home.css';
+   
+import { useOutletContext } from 'react-router-dom';
+import DeleteUser from '../components/deleteUser';
+import NewUser from '../components/newUser';
+import PatchUser from '../components/patchUser';
+import './Home.css';
+import React, { useState, useEffect } from "react";
+  
     
 
     const Home = () => {
-      const [isHammyClicked, setHammyClicked] = useState(false);
+      // states
+      const[userData,setUserData]=useOutletContext()
       
+      
+      useEffect(() => {
+        console.log(`${userData?userData:"userNoData"}`)
+      }, []); 
 
       
       return (
         <>
-          <h1 className='text' >Hello World</h1>
-          
-          
+        <NewUser/>
+        <DeleteUser/>
+        <PatchUser/>
         </>
+        
       )
     }
     
