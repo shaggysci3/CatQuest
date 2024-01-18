@@ -11,21 +11,7 @@ const UpdateUser = () => {
     displayname:"",
   });
 
-  // get id from user function
-  function getUserId(UsrArr) {
-    // filter through users to check if the user exists
-    const foundUser = UsrArr.find(user => user.name === userSearch.name);
 
-    if (foundUser) {
-      // User exists, make a patch request
-      updateUser(userData.id);
-    } else {
-      // User does not exist
-      console.log("User not found");
-    }
-  }
-
-  // form handler functions
   function handleChange(e) {
     console.log(userSearch)
     setUserSearch({
@@ -38,13 +24,7 @@ const UpdateUser = () => {
     e.preventDefault();
     console.log("form submitted")
     updateUser(userData.id)
-    // fetch request to fetch all users
-    const fetchUsers = async () => {
-      const response = await fetch("http://127.0.0.1:5555/users");
-      const UsrArr = await response.json();
-      getUserId(UsrArr);
-    };
-    fetchUsers().catch(console.error);
+    
   }
   
 
@@ -64,8 +44,10 @@ const UpdateUser = () => {
       });
 
       if (response.ok) {
+        alert(`User with ID ${userId} updated successfully`)
         console.log(`User with ID ${userId} updated successfully`);
       } else {
+        alert(`Failed to update user with ID ${userId}`)
         console.error(`Failed to update user with ID ${userId}`);
       }
     } catch (error) {
@@ -77,13 +59,6 @@ const UpdateUser = () => {
     <>
       <h1>Update user</h1>
       <form onSubmit={handleSubmit}>
-        <label>user you want to edit</label>
-        <input
-          type='text'
-          id='name'
-          value={userSearch.name}
-          onChange={handleChange}
-        />
         <div>
         <label>new username</label>
         <input

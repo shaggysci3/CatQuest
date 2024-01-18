@@ -19,6 +19,7 @@ import Create from "./routes/Create";
 import Profile from "./routes/Profile";
 import Quest from "./routes/Quest";
 import { useEffect } from "react";
+import Lab from "./routes/lab";
       
       const AppLayout = () =>{
         const [show, setShow] = useState(false);
@@ -79,7 +80,7 @@ import { useEffect } from "react";
             ,
             {
               path: "/create",
-              element: <Create/>
+              element: <Lab/>
             },
             {
               path: "/quest",

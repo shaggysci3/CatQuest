@@ -77,19 +77,27 @@
     
 
 }
-.headDiv{ 
-  min-block-size: 200px;
+.headDiv{
+  z-index: 1;
+  min-block-size: 220px;
+  max-block-size: 220px;
   position: relative;
   top: 18px;
 }
 .charTorso{
   position:relative;
-  left: 5px;
+  
   
 
 }
 .createbox{
   display: flex;
+    justify-content: center;
+    background-image: url(../src/assets/bactaTank.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 213%;
+    min-width: 44rem;
 
 }
 .buttonCol{
@@ -100,18 +108,111 @@
 }
 .charLegs{
   position: relative;
-  top:-41px;
-  left: 23px;
-
+  top: -46px;
+  left: 24px;
+  /* z-index: -1; */
 }
+
+.charName{
+  font-family:cursive;
+  font-size: 4rem;
+  
+  }
+  .namePlate{
+    background-color: #d0a26a;
+    border-radius: 18%;
+    min-width: 376px;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+  }
 
 .characterDisplay{
   display: flex;
     flex-direction: column;
     align-items: center;
+   
+}
+.cardDisplay{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  overflow-y: hidden;
+  padding-bottom: 10rem;
+}
+.avatarCard{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23rem;
+    object-fit: contain;
+    scale: 50%;
+    height: 32rem;
 }
 .characterPage{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  scale: 52%;
 }
+
+.face{
+  position: absolute;
+  z-index: 1;
+  scale: 70%;
+  top: 25px;
+  left: 18px;
+}
+.submitBox{
+  display: flex;
+  justify-content: center;
+  
+}
+.worldImg{
+  max-block-size: 38rem;
+}
+.worldImgPreview{
+  max-block-size: 20rem;
+  min-block-size: 20rem;
+}
+.bactaScreen{
+  height: 49rem;
+  width: 37rem;
+  position: absolute;
+  opacity: 66%;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(44,98,224,1) 12%, rgba(96,165,250,1) 17%, rgba(59,130,246,1) 22%, rgba(91,160,249,1) 30%, rgba(91,160,249,1) 46%, rgba(83,149,245,1) 60%, rgba(59,117,232,1) 72%, rgba(44,98,224,1) 88%, rgba(30,64,175,1) 100%);
+  
+}
+
+.container{
+  
+
+}
+.sciLab{
+  background-image: url(https://th.bing.com/th/id/OIG.gqtQe6ooQqpJN4GeT5OL?pid=ImgGn);
+  min-height: 50rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+}
+.sciModel {
+  background-color: transparent(189, 87, 50);
+}
+.sciModel .modal-body {
+  background-color: transparent;
+}
+.sciModel .modal-content {
+  background-color: transparent;
+  border: none;
+  
+}
+
+
+
+
+
+
