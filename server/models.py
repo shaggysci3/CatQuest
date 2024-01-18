@@ -111,6 +111,7 @@ class Avatar(db.Model, SerializerMixin):
     avatar_head = db.Column(db.String)
     avatar_body = db.Column(db.String)
     avatar_legs = db.Column(db.String)
+    avatar_name = db.Column(db.String)
 
     # Add relationship column
     world_id = db.Column(db.Integer, db.ForeignKey('worlds.id'))

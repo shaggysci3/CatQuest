@@ -29,7 +29,7 @@ class Login(Resource):
     user = User.query.filter(User.username == username).first()
     if user:
       if user.authenticate(password):
-          return make_response(user.to_dict(), 200)
+          return make_response(user.to_dict(rules=('-comments',"-avatars")), 200)
       return {'error': "Unauthorized"}, 401
     return {'error': "User Not Found"}, 404 
   
@@ -93,7 +93,7 @@ class UserById(Resource):
             return make_response(response_body, 204)
         else:
             response_body = {
-                "error": "Scientist not found"
+                "error": "User not found"
             }
             return make_response(response_body,404)
     
@@ -117,7 +117,7 @@ class UserById(Resource):
                 db.session.commit()
 
                 # Return the updated user
-                response_body = user.to_dict(rules=('comments', 'avatars'))
+                response_body = user.to_dict(rules=('-comments', '-avatars'))
                 return make_response(response_body, 200)
 
             except ValueError:
@@ -143,10 +143,10 @@ class AllPosts(Resource):
 
 api.add_resource(AllPosts,'/posts')
 
-class AllAvatars(Resource):
-    def get(self):
-        response_body = [avatar.to_dict(rules=('-user',"-world")) for avatar in Avatar.query.all()]
-        return make_response(response_body,200)
+class NewAvatars(Resource):
+    # def get(self):
+    #     response_body = [avatar.to_dict(rules=('-user',"-world")) for avatar in Avatar.query.all()]
+    #     return make_response(response_body,200)
     
     def post(self, user_id, world_id):
         try:
@@ -154,14 +154,16 @@ class AllAvatars(Resource):
             avatar_head= request.json.get('avatar_head')
             avatar_body= request.json.get('avatar_body')
             avatar_legs= request.json.get('avatar_legs') 
+            avatar_name= request.json.get('avatar_name')
 
-            if not all([avatar_head,avatar_body,avatar_legs]):
+            if not all([avatar_head,avatar_body,avatar_legs,avatar_name]):
                 raise ValueError("Missing required fields")
 
             new_a = Avatar(
                 avatar_head = avatar_head,
                 avatar_body = avatar_body,
                 avatar_legs = avatar_legs,
+                avatar_name = avatar_name,
                 world_id = world_id,
                 user_id = user_id
             )
@@ -178,12 +180,55 @@ class AllAvatars(Resource):
                 }
             return make_response(rb, 400)
 
-api.add_resource(AllAvatars,'/avatars/<int:user_id>/<int:world_id>')
+api.add_resource(NewAvatars,'/avatars/<int:user_id>/<int:world_id>')
+
+class AllAvatars(Resource):
+    def get(self):
+        response_body = [avatar.to_dict(rules=('-user',"-world")) for avatar in Avatar.query.all()]
+        return make_response(response_body,200)
+    
+    
+
+api.add_resource(AllAvatars,'/avatars')
+
+class AvatarById(Resource):
+    def get(self,id):
+
+        avatar = Avatar.query.filter(Avatar.id == id).first()
+
+        if avatar:
+            response_body = avatar.to_dict(rules = ('-user','-world'))
+            return make_response(response_body,200)
+        else:
+            response_body = {
+                "error": "User not found"
+            }
+            return make_response(response_body,404)
+    
+    def delete(self, id ):
+        avatar = Avatar.query.filter(Avatar.id == id).first()
+
+        if avatar:
+            db.session.delete(avatar)
+            db.session.commit()
+            response_body = {}
+            return make_response(response_body, 204)
+        else:
+            response_body = {
+                "error": "User not found"
+            }
+            return make_response(response_body,404)
+    
+    
+
+api.add_resource(AvatarById,'/avatars/<int:id>')
+
+
 
 
 class AllWorlds(Resource):
     def get(self):
-        response_body = [world.to_dict(rules=('-avatar',)) for world in World.query.all()]
+        response_body = [world.to_dict(rules=('-avatars',)) for world in World.query.all()]
         return make_response(response_body,200)
     def post(self):
         try:
@@ -214,6 +259,38 @@ class AllWorlds(Resource):
             return make_response(rb, 400)
 
 api.add_resource(AllWorlds,'/worlds')
+
+class WorldById(Resource):
+    def get(self,id):
+
+        world = World.query.filter(World.id == id).first()
+
+        if world:
+            response_body = world.to_dict(rules = ('-avatars',))
+            return make_response(response_body,200)
+        else:
+            response_body = {
+                "error": "World not found"
+            }
+            return make_response(response_body,404)
+    
+    def delete(self, id ):
+        world = World.query.filter(World.id == id).first()
+
+        if world:
+            db.session.delete(world)
+            db.session.commit()
+            response_body = {}
+            return make_response(response_body, 204)
+        else:
+            response_body = {
+                "error": "User not found"
+            }
+            return make_response(response_body,404)
+    
+    
+
+api.add_resource(WorldById,'/worlds/<int:id>')
 
 
 
