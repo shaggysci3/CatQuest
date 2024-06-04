@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useOutletContext } from 'react-router-dom';
 
 const DeleteUser = () => {
   // states
+  const[userData,setUserData,avatarData,setAvatarData]=useOutletContext()
+  const [showForm, setShowForm] = useState(false);
+  
   const [userSearch, setUserSearch] = useState({
     name: "",
   });
 
-  // get id from user function
+  // get id for Deleting the user
   function getUserId(UsrArr) {
     // filter through users to check if the user exists
     const foundUser = UsrArr.find(user => user.name === userSearch.name);
 
     if (foundUser) {
-      // User exists, make a delete request
+      //if User exists, make a delete request
       deleteUser(foundUser.id);
+      sessionStorage.clear();
+    setUserData(null)
+    setAvatarData(null)
     } else {
-      // User does not exist
+      //if User does not exist send back ERR
+      alert("please enter your username to confirm")
       console.log("User not found");
     }
   }
@@ -58,19 +67,34 @@ const DeleteUser = () => {
       console.error('Error deleting user:', error);
     }
   }
+  const toggleForm = () => {
+    setShowForm(!showForm);
+  };
 
   return (
     <>
-      <h1>Delete user</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='deleteContainer'>
+
+      {showForm && (
+        <>
+      <h1>Delete account</h1>
+      <form className='form' onSubmit={handleSubmit}>
         <input
+          placeholder='type username to confirm..'
           type='text'
           id='name'
           value={userSearch.name}
           onChange={handleChange}
-        />
+          />
         <button type="submit">Delete</button>
       </form>
+      </>
+      )}
+      
+    <Button onClick={toggleForm}>
+        {showForm ? 'Done' : 'Delete Account'}
+      </Button>
+      </div>
     </>
   );
 };

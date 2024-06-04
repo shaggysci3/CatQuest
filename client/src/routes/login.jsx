@@ -13,7 +13,7 @@ const Login = () => {
     username:"",
     password:""
   })
-  const[userData,setUserData]=useOutletContext()
+  const[userData,setUserData,avatarData,setAvatarData]=useOutletContext()
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,6 +32,7 @@ const Login = () => {
   
       if (!response.ok) {
         // Handle the case where the server returns an error status
+        alert(`Username or Password incorrect`)
         console.error(`Failed to add user. Status: ${response.status}`);
         return;
       }
@@ -39,7 +40,9 @@ const Login = () => {
       // If the request is successful, you can handle the response if needed
       const addedUser = await response.json();
       sessionStorage.setItem('token', JSON.stringify(addedUser))
+      setAvatarData(null)
       setUserData(addedUser)
+      alert(`${addedUser.name}, has logged in`)
   
       // Clear the form after successful submission
       setUserInfo({
@@ -66,7 +69,7 @@ const Login = () => {
     <>
     <div style={{display:'flex', alignContent:'center',justifyContent:'center',alignItems:'center'}}>
     <Card style={{display:'flex'}}>
-      <Form onSubmit={handleSubmit}>
+      <Form style={{alignItems:"center"}} className='form' onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formGroupEmail">
         <Form.Label>User Name</Form.Label>
         <Form.Control onChange={handleChange} type="text"  value={userInfo.username} name= 'username' placeholder="Enter User Name" />
@@ -75,7 +78,7 @@ const Login = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control onChange={handleChange} type="password" placeholder="Password" value={userInfo.password} name= 'password'/>
       </Form.Group>
-      <Button type='submit'>submit</Button>
+      <Button  type='submit'>submit</Button>
     </Form>
     </Card>
     </div>

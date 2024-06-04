@@ -13,7 +13,7 @@ const CharDisplay = ({head,body,leg}) => {
         </div>
         <img className='charTorso' src={`../src/assets/${body}`}></img>
         <img className='charLegs' src={`../src/assets/${leg}`}></img>
-        <div className='bactaScreen'></div>
+        
       </div>
     </>
   )

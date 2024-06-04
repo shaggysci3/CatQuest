@@ -27,6 +27,11 @@ import Lab from "./routes/lab";
 
 
         const [userData,setUserData]= useState()
+        const [avatarData,setAvatarData]=useState({
+          avatar_head:"",
+          avatar_body:"",
+          avatar_legs:"",
+        })
 
 
         const handleClose = () => { setHammyClicked(!isHammyClicked);setShow(false)};
@@ -34,12 +39,19 @@ import Lab from "./routes/lab";
         
         useEffect(() => {
           const storedUserStr= sessionStorage.getItem('token')
+          const storedAvatarStr= sessionStorage.getItem('avatarToken')
           if (storedUserStr){
           const storedUser = JSON.parse(storedUserStr) 
           setUserData(storedUser)
           console.log(storedUser)
-          
-        }}, []); 
+          }
+          if (storedAvatarStr){
+            const storedAvatar = JSON.parse(storedAvatarStr) 
+            setAvatarData(storedAvatar)
+            console.log(storedAvatar)
+            
+          }
+        }, []); 
 //  use outlet context
 
 
@@ -57,7 +69,7 @@ import Lab from "./routes/lab";
           </Offcanvas.Body>
         </Offcanvas>
           
-          <Outlet context={[userData, setUserData]}/>
+          <Outlet context={[userData, setUserData,avatarData,setAvatarData]}/>
           </>
         )
       }
@@ -100,4 +112,4 @@ import Lab from "./routes/lab";
       createRoot(document.getElementById("root")).render(
         <RouterProvider router={router} />
       );
-    
+      

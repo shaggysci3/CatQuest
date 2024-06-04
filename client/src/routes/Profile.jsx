@@ -5,10 +5,12 @@ import { Button } from 'react-bootstrap'
 import { useOutletContext } from 'react-router-dom'
 import Quest from './Quest'
 import Worlds from '../components/worlds'
+import SelectedAvatar from '../components/selectedAvatar'
+import DeleteUser from '../components/deleteUser'
 
 
 const Profile = () => {
-  const[userData,setUserData]=useOutletContext()
+  const[userData,setUserData,avatarData,setAvatarData]=useOutletContext()
   
   
 
@@ -16,19 +18,36 @@ const Profile = () => {
 
     sessionStorage.clear();
     setUserData(null)
-    console.log(userData.name)
+    setAvatarData(null)
+    // console.log(userData.name)
+  }
+  function showClick(){
+    console.log(userData)
   }
 
   
 
   return (
     <>
-      <h1>Logged in User is: {userData ? userData.name:"userdataNotHere" }</h1>
-      <UpdateUser/>
-      <Button onClick={handleClick}>logout</Button>
+    <div className='profilePage'>
+      
+      <h1>{userData ? `Welcome ${userData.name}`:"Please login to view Profile" }</h1>
+      {userData && (
+        <>
+        <div className='leftToRight'>
+        <div className='selectionContainer'>
 
-      <div>
-        <Worlds/>
+          <UpdateUser />
+          <DeleteUser />
+          {/* <Worlds /> */}
+          <Button onClick={handleClick}>logout</Button>
+        </div>
+        <div>
+          <SelectedAvatar top={'5.6rem'}/>
+        </div>
+        </div>
+        </>
+      )}
       </div>
     </>
   )

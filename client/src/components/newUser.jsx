@@ -66,7 +66,7 @@ const NewUser = () => {
     <>
     
     <form onSubmit={handleSubmit}>
-      <h1> Add user</h1>
+      <h1> Sign up</h1>
       <div>
         <label>Displayname:</label>
         <input

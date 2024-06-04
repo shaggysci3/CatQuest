@@ -9,7 +9,7 @@ import { useOutletContext } from 'react-router-dom'
 
 
 const Create = () => {
-  const[userData,setUserData]=useOutletContext()
+  const[userData,setUserData,avatarData]=useOutletContext()
 // state to pass tot he display with the file name
   const [head,setHead] = useState("headFrontCat.png")
   const [body,setBody] = useState("torsoHuman.png")
@@ -62,6 +62,7 @@ const Create = () => {
   useEffect(() => {
     setHead(bodyParts.head[headIndex])
     updateHead(bodyParts.head[headIndex]);
+    
   }, [headIndex]);
 
   useEffect(() => {
@@ -197,7 +198,7 @@ const Create = () => {
     </div>
     <div className='characterPage'>
       <CharDisplay head={head} body = {body} leg = {leg}/>
-      
+      <div className='bactaScreen'></div>
     </div>
     <div className='buttonCol'>
       <Button onClick={rightHeadClick}>Head right</Button>
